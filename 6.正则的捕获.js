@@ -70,6 +70,51 @@ var ary3 = str2.match(reg4); //[ '2', '0', '1', '8', '2', '0', '1', '9' ]
 console.log(ary3,'ary3')
 // reg4 = /\d+/g; str2.match(reg4); [ '2019', '2008', '2020' ] 'ary3'
 
+//（）
+// 正则分组：
+// 1、改变优先级，
+// 2、分组引用 
+// \2代表和第二个分组出现一模一样的内容；\1和第一个分组出现一模一样的内容
+// 3、分组捕获 -> 正则在捕获的时候，不仅仅把大正则匹配的内容捕获到，还能捕获到小分组匹配的内容
+//   (?:) 在分组中?:的意思是只匹配不捕获
+
+var reg5 = /^(\w)\1(\w)\2$/;
+console.log(reg5.test("zzff"))
+
+
+var reg6 = /^(\d{2})(\d{4})(\d{4})(\d{2})(\d{2})(?:\d{2})(\d)(?:\d|X)$/;
+
+var str3 = "142726199009181211";
+console.log(reg6.exec(str3),"reg6 exec")
+// ['142726199009181211',
+// '14',
+// '2726',
+// '1990',
+// '09',
+// '18',
+// '1',
+// index: 0,
+//     input: '142726199009181211' ]'reg6 exec'
+
+// 数组中的第一项 -> 大正则匹配的内容 
+// ary[1] -> 第一个分组捕获的内容
+// 以此类推。。。
+// console.log(str3.match(reg6),'match6') // -> 和exec获取的结果是一样的
+
+
+var reg7 = /yyccQQu(\d+)/g
+var str4 = "yyccQQu1234yyccQQu3456yyccQQu5678"
+console.log(reg7.exec(str4), "reg7 exec1");
+console.log(reg7.exec(str4), "reg7 exec2");
+console.log(reg7.exec(str4),"reg7 exec3");
+// ['yyccQQu5678',
+//     '5678',
+//     index: 22,
+//     input: 'yyccQQu1234yyccQQu3456yyccQQu5678'] 'reg7 exec3'
+// exec执行三次，每一次都能把大正则匹配的获取到，而且还可以获取第一个分组匹配的内容
+
+//match 方法只能捕获大正则匹配的内容
+console.log(str4.match(reg7), "match reg7") //[ 'yyccQQu1234', 'yyccQQu3456', 'yyccQQu5678' ] 'match reg7'
 
 
 
